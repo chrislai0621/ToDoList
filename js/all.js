@@ -1,6 +1,6 @@
 var btnAdd = document.getElementById('btnAdd');
 var toDoStr = '';
-var arrayToDo = [];
+var arrayToDo = JSON.parse(localStorage.getItem("ToDo")) || [];
 var divlist = document.querySelector('.todolist');
 updateToDoList();
 function AddToDoList()
@@ -20,20 +20,14 @@ function AddToDoList()
 }
 function updateToDoList() {
     var todoList = '';
-    toDoStr = localStorage.getItem("ToDo");
-    if (toDoStr !== null)
-    {
-        arrayToDo = JSON.parse(toDoStr); //string to array
-        for (let i = 0; i < arrayToDo.length; i++) {
-            todoList += '<div class="alert alert-info" role="alert">';
-            todoList += '<i data-num="' + i + '"  class="fas fa-trash-alt mr-3 btn-delete"></i>';
-            todoList += '<span class="mr-3">' + arrayToDo[i].date + '</span >';
-            todoList += '<span>' + arrayToDo[i].thing + '</span >';
-            todoList += '</div >';
-        }
-        divlist.innerHTML = todoList;
-          
-    }    
+    for (let i = 0; i < arrayToDo.length; i++) {
+        todoList += '<div class="alert alert-info" role="alert">';
+        todoList += '<i data-num="' + i + '"  class="fas fa-trash-alt mr-3 btn-delete"></i>';
+        todoList += '<span class="mr-3">' + arrayToDo[i].date + '</span >';
+        todoList += '<span>' + arrayToDo[i].thing + '</span >';
+        todoList += '</div >';
+    }
+    divlist.innerHTML = todoList;    
 }
 function RemoveToDoList(e) {
     var nodeName = e.target.nodeName;
