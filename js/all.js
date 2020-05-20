@@ -21,10 +21,14 @@ function AddToDoList()
 function updateToDoList() {
     var todoList = '';
     for (let i = 0; i < arrayToDo.length; i++) {
-        todoList += '<div class="alert alert-info" role="alert">';
-        todoList += '<i data-index="' + i + '"  class="fas fa-trash-alt mr-3 btn-delete"></i>';
-        todoList += '<span class="mr-3">' + arrayToDo[i].date + '</span >';
-        todoList += '<span>' + arrayToDo[i].thing + '</span >';
+        todoList += '<div class="alert alert-info">';    
+        todoList += '   <div class="d-flex justify-content-between">';
+        todoList += '      <div>';
+        todoList += '           <span class="mr-3">' + arrayToDo[i].date + '</span >';
+        todoList += '           <span>' + arrayToDo[i].thing + '</span >';
+        todoList += '       </div >';
+        todoList += '       <i data-index="' + i + '"  class="fas fa-trash-alt btn-delete"></i>';
+        todoList += '   </div >';
         todoList += '</div >';
     }
     divlist.innerHTML = todoList;    
