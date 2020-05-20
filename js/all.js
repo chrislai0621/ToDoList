@@ -13,16 +13,16 @@ function AddToDoList()
         date: getDate()
     }
     arrayToDo.push(data);
-    var toDostring = JSON.stringify(arrayToDo);
-    localStorage.setItem("ToDo",toDostring);
+    localStorage.setItem("ToDo", JSON.stringify(arrayToDo));
     updateToDoList();
-    document.getElementById('txtThing').value= '';
+    document.getElementById('txtThing').value='';
+    document.getElementById('txtThing').focus();
 }
 function updateToDoList() {
     var todoList = '';
     for (let i = 0; i < arrayToDo.length; i++) {
         todoList += '<div class="alert alert-info" role="alert">';
-        todoList += '<i data-num="' + i + '"  class="fas fa-trash-alt mr-3 btn-delete"></i>';
+        todoList += '<i data-index="' + i + '"  class="fas fa-trash-alt mr-3 btn-delete"></i>';
         todoList += '<span class="mr-3">' + arrayToDo[i].date + '</span >';
         todoList += '<span>' + arrayToDo[i].thing + '</span >';
         todoList += '</div >';
@@ -31,11 +31,10 @@ function updateToDoList() {
 }
 function RemoveToDoList(e) {
     var nodeName = e.target.nodeName;
-    if (nodeName != 'I') { return }
-    var index = e.target.dataset.num;
+    if (nodeName !== 'I') { return }
+    var index = e.target.dataset.index;
     arrayToDo.splice(index,1);
-    var toDostring = JSON.stringify(arrayToDo);
-    localStorage.setItem("ToDo", toDostring);
+    localStorage.setItem("ToDo", JSON.stringify(arrayToDo));
     updateToDoList();
 }
 btnAdd.addEventListener('click', AddToDoList);
