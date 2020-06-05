@@ -6,8 +6,7 @@ var app = new Vue({
         arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || []
      },
     methods: {
-        addToDoList: function (toDoThing) {
-            var num = this.arrayToDo.length;
+        addToDoList: function (toDoThing) {           
             var data = {
                 thing: toDoThing,
                 date: this.getDate(),
