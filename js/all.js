@@ -3,8 +3,8 @@ var app = new Vue({
     data:
     {
         toDoThing:'',
-        arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || [],
-    },
+        arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || []
+     },
     methods: {
         AddToDoList: function (toDoThing) {
             var num = this.arrayToDo.length;
@@ -19,15 +19,22 @@ var app = new Vue({
             document.getElementById('txtThing').focus();
         },
         UpdateToDoList: function (todo) {
+            //為什麼抓到的todo不是勾選後的資料，有onchange事件嗎?
             let index = this.arrayToDo.indexOf(todo);
             this.arrayToDo[index] = todo;
             this.arrayToDo[index].completed = !(todo.completed);
             localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+            
         },
         RemoveToDoList:function (todo) {
             this.arrayToDo.splice(this.arrayToDo.indexOf(todo), 1);
             localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
          },
+        RemoveCompletedData:function()
+        {
+            this.arrayToDo = this.arrayToDo.filter(e => e.completed != true);
+            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+        },
         getDate :function(){
             var d = new Date();
             var month = d.getMonth() + 1;
@@ -43,6 +50,9 @@ var app = new Vue({
                 (minute < 10 ? '0' : '') + minute + ':' +
                 (second < 10 ? '0' : '') + second;
             return output;
+        },
+        getShowCompleted:function () {
+            return this.arrayToDo.filter(e => e.completed == true).length > 0;
         }
 
     }
