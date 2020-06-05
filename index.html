@@ -13,20 +13,29 @@
 
 <body>
     <div class="container mt-3">
-        <div class="card">
+        <div class="card" id="main">
             <div class="card-header text-center bg-info text-white">
                 待辦事項
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
                     <input type="text" id="txtThing" class="form-control" placeholder="輸入待辦事項" aria-label="輸入待辦事項"
-                        aria-describedby="輸入待辦事項2">
+                        aria-describedby="輸入待辦事項2" v-model='toDoThing' @keyup.enter="AddToDoList(toDoThing)">
                     <div class="input-group-append">
-                        <button class="btn btn-info" type="button" id="btnAdd">新增</button>
+                        <button class="btn btn-info" type="button" id="btnAdd"
+                            v-on:click="AddToDoList(toDoThing)">新增</button>
                     </div>
                 </div>
-                <div class="todolist">
-                  
+
+                <div class="alert alert-info " v-for="item in arrayToDo" >
+                    <div class="d-flex justify-content-between">
+                        <div class="todo"  v-bind:class="{ active: item.completed }">
+                            <input type="checkbox" v-model="item.completed" v-on:click="UpdateToDoList(item)">
+                            <span class="mr-3">{{item.date}}</span>
+                            <span>{{item.thing}}</span>
+                        </div>
+                        <i class="fas fa-trash-alt btn-delete" v-on:click="RemoveToDoList(item)"></i>
+                    </div>
                 </div>
             </div>
 
@@ -41,6 +50,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="js/all.js"></script>
 </body>
 
