@@ -7,7 +7,7 @@ body {
     "Helvetica Neue", Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
-.todo.active{
+.completed{
   text-decoration: line-through;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {

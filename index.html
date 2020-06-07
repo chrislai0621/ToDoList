@@ -47,10 +47,13 @@
                 </div>
                 <div class="alert alert-info " v-for="item in filterData">
                     <div class="d-flex justify-content-between">
-                        <div class="todo" v-bind:class="{ active: item.completed }">
-                            <input type="checkbox" v-model="item.completed" v-on:click="updateToDoList(item)">
-                            <span class="mr-3">{{item.date}}</span>
-                            <span>{{item.thing}}</span>
+                        <div class="todo" >                            
+                        
+                            <input type="checkbox"  v-model="item.completed" :id="item.date" v-bind:checked="updateToDoList(item)">
+                            <label class="form-check-label" :for="item.date" :class="{completed:item.completed}">
+                                {{ item.date  }}
+                            </label>
+                            <span :class="{completed:item.completed}">{{item.thing}}</span>
                         </div>
                         <i class="fas fa-trash-alt btn-delete" v-on:click="removeToDoList(item)"></i>
                     </div>

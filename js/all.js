@@ -4,7 +4,7 @@ var app = new Vue({
     {
         toDoThing:'',
         arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || [],
-        visibility: 'all'
+        visibility: 'todo'
      },
     methods: {
         addToDoList: function (toDoThing) {           
@@ -22,7 +22,7 @@ var app = new Vue({
             //為什麼抓到的todo不是勾選後的資料，有onchange事件嗎?
             let index = this.arrayToDo.indexOf(todo);
             this.arrayToDo[index] = todo;
-            this.arrayToDo[index].completed = !(todo.completed);
+            // this.arrayToDo[index].completed = !(todo.completed);
             localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
             
         },
