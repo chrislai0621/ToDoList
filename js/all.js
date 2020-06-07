@@ -3,7 +3,8 @@ var app = new Vue({
     data:
     {
         toDoThing:'',
-        arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || []
+        arrayToDo: JSON.parse(localStorage.getItem("ToDo")) || [],
+        visibility: 'all'
      },
     methods: {
         addToDoList: function (toDoThing) {           
@@ -65,5 +66,21 @@ var app = new Vue({
             return this.arrayToDo.filter(e => e.completed == false).length > 0;
         }
 
+    },
+    computed:{
+        filterData:function()
+        {
+            switch (this.visibility)
+            {
+                case 'all':
+                    return this.arrayToDo;
+                case 'todo':
+                    return this.arrayToDo.filter(element =>
+                        element.completed ==false );
+                case 'finish':
+                    return this.arrayToDo.filter(element =>
+                        element.completed == true);
+            }
+        }
     }
 });

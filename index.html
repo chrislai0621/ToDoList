@@ -13,84 +13,51 @@
 
 <body>
     <div class="container mt-3">
+
         <div class="card mb-3" id="main">
             <div class="card-header text-center bg-info text-white">
                 待辦事項
             </div>
             <div class="card-body">
+                <ul class="nav nav-pills nav-info mb-3 " id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link " id="all" :class="{active:visibility=='all'}" @click="visibility='all'">全部顯示</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="todo" :class="{active:visibility=='todo'}" @click="visibility='todo'">未處理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " id="todo" :class="{active:visibility=='finish'}" @click="visibility='finish'">已處理</a>
+
+                    </li>
+                </ul>
                 <div class="input-group mb-3">
                     <input type="text" id="txtThing" class="form-control" placeholder="輸入待辦事項" aria-label="輸入待辦事項"
-                        aria-describedby="輸入待辦事項2" v-model='toDoThing' @keyup.enter="addToDoList(toDoThing)">
+                        aria-describedby="輸入待辦事項" v-model='toDoThing' @keyup.enter="addToDoList(toDoThing)">
                     <div class="input-group-append">
                         <button class="btn btn-info" type="button" id="btnAdd"
                             v-on:click="addToDoList(toDoThing)">新增</button>
                     </div>
                 </div>
-                <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all">
-                        <div class="alert alert-info " v-for="item in arrayToDo">
-                            <div class="d-flex justify-content-between">
-                                <div class="todo" v-bind:class="{ active: item.completed }">
-                                    <input type="checkbox" v-model="item.completed" v-on:click="updateToDoList(item)">
-                                    <span class="mr-3">{{item.date}}</span>
-                                    <span>{{item.thing}}</span>
-                                </div>
-                                <i class="fas fa-trash-alt btn-delete" v-on:click="removeToDoList(item)"></i>
-                            </div>
+                <div class="d-flex mb-3">
+                    <a class="nav-link" href="#" v-if="getShowToDo()" v-on:click="completToDo()">全部做完</a>
+                    <a class="nav-link" href="#" v-if="getShowCompleted()"
+                        v-on:click="removeCompletedData()">刪除己處理事項</a>
+                    <span class="ml-auto">{{arrayToDo.filter(e=>e.completed ==false).length}}待辦事項</span>
+                </div>
+                <div class="alert alert-info " v-for="item in filterData">
+                    <div class="d-flex justify-content-between">
+                        <div class="todo" v-bind:class="{ active: item.completed }">
+                            <input type="checkbox" v-model="item.completed" v-on:click="updateToDoList(item)">
+                            <span class="mr-3">{{item.date}}</span>
+                            <span>{{item.thing}}</span>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="todo" role="tabpanel" aria-labelledby="todo">
-                        <div v-for="item in arrayToDo">
-                            <div class="alert alert-info " v-if="!item.completed">
-                                <div class="d-flex justify-content-between">
-                                    <div class="todo" v-bind:class="{ active: item.completed }">
-                                        <input type="checkbox" v-model="item.completed"
-                                            v-on:click="updateToDoList(item)">
-                                        <span class="mr-3">{{item.date}}</span>
-                                        <span>{{item.thing}}</span>
-                                    </div>
-                                    <i class="fas fa-trash-alt btn-delete" v-on:click="r(item)"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="finish" role="tabpanel" aria-labelledby="finish">
-                        <div v-for="item in arrayToDo">
-                            <div class="alert alert-info " v-if="item.completed">
-                                <div class="d-flex justify-content-between">
-                                    <div class="todo" v-bind:class="{ active: item.completed }">
-                                        <input type="checkbox" v-model="item.completed"
-                                            v-on:click="updateToDoList(item)">
-                                        <span class="mr-3">{{item.date}}</span>
-                                        <span>{{item.thing}}</span>
-                                    </div>
-                                    <i class="fas fa-trash-alt btn-delete" v-on:click="r(item)"></i>
-                                </div>
-                            </div>
-                        </div>
+                        <i class="fas fa-trash-alt btn-delete" v-on:click="removeToDoList(item)"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-between p-3">
-                <span>{{arrayToDo.filter(e=>e.completed ==false).length}}待辦事項</span>
-                <a class="nav-link" href="#" v-if="getShowToDo()" v-on:click="completToDo()">全部做完</a>
-                <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="all" data-toggle="pill" href="#all" role="tab"
-                            aria-controls="pills-home" aria-selected="true">全部顯示</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="todo" data-toggle="pill" href="#todo" role="tab"
-                            aria-controls="pills-profile" aria-selected="false">未處理</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="finish" data-toggle="pill" href="#finish" role="tab"
-                            aria-controls="finish" aria-selected="false">已處理</a>
-                    </li>
-                </ul>
-                <a class="nav-link"  href="#" v-if="getShowCompleted()" v-on:click="removeCompletedData()">刪除己處理事項</a>
-            </div>
+
         </div>
 
     </div>
