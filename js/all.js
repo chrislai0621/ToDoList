@@ -18,14 +18,6 @@ var app = new Vue({
             this.toDoThing='';
             document.getElementById('txtThing').focus();
         },
-        updateToDoList: function (todo) {
-            //為什麼抓到的todo不是勾選後的資料，有onchange事件嗎?
-            let index = this.arrayToDo.indexOf(todo);
-            this.arrayToDo[index] = todo;
-            // this.arrayToDo[index].completed = !(todo.completed);
-            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
-            
-        },
         removeToDoList:function (todo) {
             this.arrayToDo.splice(this.arrayToDo.indexOf(todo), 1);
             localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
@@ -49,13 +41,15 @@ var app = new Vue({
             var hour = d.getHours();
             var minute = d.getMinutes();
             var second = d.getSeconds();
+            var milliSecond = d.getMilliseconds();
 
-            var output = d.getFullYear() + '/' +
-                (month < 10 ? '0' : '') + month + '/' +
-                (day < 10 ? '0' : '') + day + ' ' +
-                (hour < 10 ? '0' : '') + hour + ':' +
-                (minute < 10 ? '0' : '') + minute + ':' +
-                (second < 10 ? '0' : '') + second;
+            var output =parseInt(d.getFullYear() +
+                (month < 10 ? '0' : '') + month  +
+                (day < 10 ? '0' : '') + day +
+                (hour < 10 ? '0' : '') + hour +
+                (minute < 10 ? '0' : '') + minute + 
+                (second < 10 ? '0' : '') + second +
+                (milliSecond < 100 ? '0' : '') + milliSecond);
             return output;
         },
         getShowCompleted:function () {
@@ -82,5 +76,10 @@ var app = new Vue({
                         element.completed == true);
             }
         }
+    },
+    updated:function () {
+            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
     }
+    
+
 });

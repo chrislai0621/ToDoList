@@ -49,7 +49,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="todo" >                            
                         
-                            <input type="checkbox"  v-model="item.completed" :id="item.date" v-bind:checked="updateToDoList(item)">
+                            <input type="checkbox" v-model="item.completed" :id="item.date" :key="item.date">
                             <label class="form-check-label" :for="item.date" :class="{completed:item.completed}">
                                 {{ item.date  }}
                             </label>
