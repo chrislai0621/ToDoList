@@ -13,26 +13,22 @@ var app = new Vue({
                 date: this.getDate(),
                 completed:false
             }
-            this.arrayToDo.push(data);
-            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+            this.arrayToDo.push(data);            
             this.toDoThing='';
             document.getElementById('txtThing').focus();
         },
         removeToDoList:function (todo) {
-            this.arrayToDo.splice(this.arrayToDo.indexOf(todo), 1);
-            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+            this.arrayToDo.splice(this.arrayToDo.indexOf(todo), 1);            
          },
         removeCompletedData:function()
         {
-            this.arrayToDo = this.arrayToDo.filter(e => e.completed != true);
-            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+            this.arrayToDo = this.arrayToDo.filter(e => e.completed != true);            
         },
         completToDo:function () {
             for (let i = 0; i < this.arrayToDo.length ; i++)
             {
                 this.arrayToDo[i].completed =true;
-            }
-            localStorage.setItem("ToDo", JSON.stringify(this.arrayToDo));
+            }            
         },
         getDate :function(){
             var d = new Date();
